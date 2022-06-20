@@ -13,6 +13,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +94,32 @@ public class MainWindow extends JFrame {
 	
 		makeMeni();
 		makeToolbar();
+		makeStatusBar();
+		makeTabs();
 		setVisible(true);
+	}
+	
+	public void makeStatusBar() {
+		
+		//https://zetcode.com/java/currentdatetime/
+		//link za formatiranje datuma
+		
+
+	    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+		LocalDateTime date = LocalDateTime.now();   
+		String strDate = dateFormat.format(date); 
+		JLabel datum=new JLabel(strDate);
+		statusBar.add(datum);
+		this.add(statusBar,BorderLayout.SOUTH);
+	}
+	
+	public void makeTabs() {
+		
+		zap.add(jl);
+	  	tabs.addTab("Zaposleni", zap);
+	  	sof.add(jl2);
+	  	tabs.addTab("Softver", sof);
+	  	this.add(tabs);
 	}
 	
 	public void makeMeni() {
