@@ -5,9 +5,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -141,6 +144,155 @@ public class MainWindow extends JFrame {
     	});
 	}
 	
+	public void newEntities() {
+		dijalog=new JDialog();
+		dijalog.setLayout(new BorderLayout());
+		dijalog.setModal(true);
+		dijalog.setSize(600,800);
+		JLabel im=new JLabel("Ime");
+		JLabel prez=new JLabel("Prezime");
+		JLabel jmb=new JLabel("JMBG");
+		JLabel mej=new JLabel("Email");
+		JLabel Datum=new JLabel("Datum");
+		JLabel ul=new JLabel("Ulica");
+		JLabel br=new JLabel("Broj");
+		JLabel gr=new JLabel("Grad");
+		JLabel so=new JLabel("Naziv softvera");
+		JLabel faj=new JLabel("Fajl Format");
+		JLabel al=new JLabel("Alat");
+		JLabel nazcet=new JLabel("Naziv cetkice");
+		JLabel col=new JLabel("Boja");
+		JLabel nam=new JLabel("Namena");
+		JLabel mat=new JLabel("Materijali");
+		JLabel kam=new JLabel("Kamere");
+		JLabel objk=new JLabel("Objekti");
+		JLabel nazivr=new JLabel("Naziv rendera");
+		
+		JPanel bigpan=new JPanel(new GridLayout(1,2));
+		JPanel zappan=new JPanel(new GridLayout(9,1));
+		JPanel sofpan=new JPanel(new GridLayout(10,1));
+
+		nazivsof.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				JOptionPane greska=new JOptionPane();
+				
+				String currentVal = nazivsof.getText();
+			    for(Softver s:software) {
+			    	
+			    	if(currentVal.equals(s.Naziv) && !editS) {
+			    		greska.showMessageDialog(dijalog,"Greska: Naziv softvera mora biti jedinstven", "Error Message",
+						          JOptionPane.ERROR_MESSAGE);
+			    		dijalogS.dispose();
+			    	}
+			    }
+			    greska.setVisible(false);
+				
+			}
+			
+		});
+		
+		sofpan.add(so);
+		sofpan.add(nazivsof);
+		sofpan.add(faj);
+		sofpan.add(fajl);
+		sofpan.add(al);
+		sofpan.add(alat);
+		sofpan.add(nazcet);
+		sofpan.add(nazivcet);
+		sofpan.add(nam);
+		sofpan.add(namena);
+		sofpan.add(nazivr);
+		sofpan.add(nazivren);
+		sofpan.add(mat);
+		sofpan.add(materijali);
+		sofpan.add(kam);
+		sofpan.add(kamere);
+		sofpan.add(objk);
+		sofpan.add(objekti);
+		
+		
+		
+		jmbg.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				JOptionPane greska=new JOptionPane();
+				
+				String currentVal = jmbg.getText();
+			    for(Zaposleni z:zaposl) {
+			    	double d=Double.parseDouble(z.Jmbg);
+			    	if(currentVal.equals(z.Jmbg) && !editB) {
+			    		JOptionPane.showMessageDialog(dijalog,"Greska: JMBG mora biti jedinstven", "Error Message",
+						          JOptionPane.ERROR_MESSAGE);
+			    		dijalog.dispose();
+			    	}
+			    }
+			    greska.setVisible(false);
+			}
+			
+		});
+
+		zappan.add(im);
+		zappan.add(ime);
+		zappan.add(prez);
+		zappan.add(prezime);
+		zappan.add(jmb);
+		zappan.add(jmbg);
+		zappan.add(Datum);
+		zappan.add(txtDate);
+		zappan.add(mej);
+		zappan.add(mejl);
+		zappan.add(rad);
+		zappan.add(mestaR);
+		zappan.add(ul);
+		zappan.add(ulica);
+		zappan.add(br);
+		zappan.add(broj);
+		zappan.add(gr);
+		zappan.add(grad);
+		
+		
+		bigpan.add(zappan);
+		dijalog.add(bigpan);
+		JButton okej=new JButton("OK");
+		JButton cancel=new JButton("CANCEL");
+		
+		JPanel buttpanS=new JPanel();
+		JPanel buttpan=new JPanel();
+
+		dijalogS=new JDialog();
+		dijalogS.setLayout(new BorderLayout());
+		dijalogS.setModal(true);
+		dijalogS.setSize(600,600);
+		JPanel bigpanS=new JPanel(new GridLayout(1,2));
+		bigpanS.add(sofpan);
+		dijalogS.add(bigpanS);
+		JButton okejS=new JButton("OK");
+		JButton cancelS=new JButton("CANCEL");
+		
+		buttpan.add(okej);
+		buttpan.add(cancel);
+		dijalog.add(buttpan,BorderLayout.SOUTH);
+		buttpanS.add(okejS);
+		buttpanS.add(cancelS);
+		dijalogS.add(buttpanS,BorderLayout.SOUTH);
+		
+	}
+	
 	public void makeToolbar() {
 		JButton addButton = new JButton(new ImageIcon(
                 this.getClass().getResource("/images/addd12.png")));
@@ -152,6 +304,20 @@ public class MainWindow extends JFrame {
         toolbar.add(addButton);
         toolbar.add(editButton);
         toolbar.add(deleteButton);
+        
+        addButton.addActionListener(new ActionListener() {
+       	    
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				newEntities();
+				dijalog.setVisible(true);
+				bojaCet=JColorChooser.showDialog(dijalogS,"Izaberi boju cetkice",Color.RED); 
+				dijalogS.setVisible(true);
+				
+				
+			}
+    	});
         
         this.add(toolbar,BorderLayout.NORTH);
         
