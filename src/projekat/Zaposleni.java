@@ -11,12 +11,13 @@ import java.util.List;
 public class Zaposleni {
 	public String Ime;
 	public String Prezime;
-	public String	Jmbg;
+	public String Jmbg;
 	public LocalDate DatumRodjenja;
 	public String Email;
 	public String RadnoMesto;
 	public Adresa AdresaStan;
 	public List<Softver> Softveri=new ArrayList<>();
+	
 	public Zaposleni(String ime, String prezime, String jmbg, LocalDate datumRodjenja, String email, Adresa adresaStan, String radnoMesto) {
 		super();
 		Ime = ime;
@@ -27,9 +28,11 @@ public class Zaposleni {
 		AdresaStan = adresaStan;
 		RadnoMesto = radnoMesto;
 	}
+	
 	public void dodajSoftver(Softver s) {
 		Softveri.add(s);
 	}
+	
 	@Override
 	public String toString() {
 		
