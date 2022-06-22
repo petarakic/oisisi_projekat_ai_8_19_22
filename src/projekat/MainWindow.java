@@ -348,7 +348,7 @@ public class MainWindow extends JFrame {
 			    	if(currentVal.equals(s.Naziv) && !editS) {
 			    		JOptionPane.showMessageDialog(dijalog,"Greska: Naziv softvera mora biti jedinstven", "Error Message",
 						          JOptionPane.ERROR_MESSAGE);
-			    		dijalogS.dispose();
+			    		return;
 			    	}
 			    }
 			    greska.setVisible(false);	
@@ -384,14 +384,13 @@ public class MainWindow extends JFrame {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				JOptionPane greska=new JOptionPane();
+				JOptionPane greska = new JOptionPane();
 				
 				String currentVal = jmbg.getText();
 			    for (Zaposleni z : zaposl) {
 			    	if (currentVal.trim().equals(z.Jmbg)) {
 			    		JOptionPane.showMessageDialog(dijalog,"Greska: JMBG mora biti jedinstven", "Error Message",
 						          JOptionPane.ERROR_MESSAGE);
-			    		dijalog.dispose();
 			    		return;
 			    	}
 			    }
@@ -528,15 +527,6 @@ public class MainWindow extends JFrame {
 		String ime1 = ime.getText();
 		String prez1 = prezime.getText();
 		String mail = mejl.getText();
-
-		for (Zaposleni z : zaposl) {
-			if (jmbg.getText().equals(z.Jmbg)) {
-	    		System.out.println("JMBG mora biti isti jedinstveni !");
-	    		JOptionPane.showMessageDialog(dijalog,"Greska: JMBG mora biti jedinstven", "Error Message",
-				          JOptionPane.ERROR_MESSAGE);
-	    		return;
-			}
-		}
 		
 		if (!editB) {
 				String mes = (String) mestaR.getSelectedValue();
@@ -561,6 +551,7 @@ public class MainWindow extends JFrame {
 			}
 			editB=false;
 		}
+		return;
 	}
 	
 	public void addSoftver() {
@@ -575,8 +566,6 @@ public class MainWindow extends JFrame {
 		
 
 	    for (Softver s : software) {
-	    	System.out.println(s.Naziv);
-	    	System.out.println(nazS);
 	    	if (nazS.trim().equals(s.getNaziv())) {
 	    		System.out.println("Sovtveri imaju isti naziv !");
 	    		JOptionPane.showMessageDialog(dijalog,"Greska: naziv softveramora biti jedinstven", "Error Message",
